@@ -2,6 +2,7 @@ package br.com.rodrigogurgel.graphqlservice.repositories.impl
 
 import br.com.rodrigogurgel.graphqlservice.exceptions.PetNotFoundException
 import br.com.rodrigogurgel.graphqlservice.models.Pet
+import br.com.rodrigogurgel.graphqlservice.models.PetType
 import br.com.rodrigogurgel.graphqlservice.repositories.PetRepository
 import br.com.rodrigogurgel.graphqlservice.repositories.mappers.PetMapper
 import java.time.OffsetDateTime
@@ -19,7 +20,12 @@ class PetRepositoryPGImpl(
         where user_id = :user_id
     """.trimIndent()
 
-    private final val inserPet = """
+    private final val findPetsByUserIdAndType = """
+        $findPetsByUserId
+        and pet_type = :type
+    """.trimIndent()
+
+    private final val insertPet = """
         insert into pet (id, user_id, name, pet_type, created_at, updated_at)
         values (:id, :user_id, :name, :pet_type, :created_at, :updated_at)
         returning *
@@ -49,7 +55,7 @@ class PetRepositoryPGImpl(
             )
         }
         return namedParameterJdbcTemplate.query(
-            inserPet,
+            insertPet,
             params,
             PetMapper()
         ).first()
@@ -64,4 +70,14 @@ class PetRepositoryPGImpl(
             PetMapper()
         ).firstOrNull() ?: throw PetNotFoundException("Pet Not Found! id: $id")
     }
+
+    override fun findPetsByUserIdAndType(userId: UUID, type: PetType): List<Pet> =
+        namedParameterJdbcTemplate.query(
+            findPetsByUserIdAndType,
+            mapOf(
+                "user_id" to userId,
+                "type" to type.name
+            ),
+            PetMapper()
+        )
 }

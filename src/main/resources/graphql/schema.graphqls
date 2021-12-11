@@ -26,6 +26,7 @@ type User {
     id: ID!
     name: String
     pets: [Pet!]
+    petsWithType(type: PetType): [Pet!]
 }
 
 type Mutation {

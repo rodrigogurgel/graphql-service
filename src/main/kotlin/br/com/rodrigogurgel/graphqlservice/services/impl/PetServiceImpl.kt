@@ -1,6 +1,7 @@
 package br.com.rodrigogurgel.graphqlservice.services.impl
 
 import br.com.rodrigogurgel.graphqlservice.models.Pet
+import br.com.rodrigogurgel.graphqlservice.models.PetType
 import br.com.rodrigogurgel.graphqlservice.repositories.PetRepository
 import br.com.rodrigogurgel.graphqlservice.services.PetService
 import java.util.UUID
@@ -19,4 +20,7 @@ class PetServiceImpl(
 
     override fun findPetById(id: UUID): Pet =
         petRepository.findPetById(id)
+
+    override fun findPetsByUserIdAndType(userId: UUID, type: PetType): List<Pet> =
+        petRepository.findPetsByUserIdAndType(userId, type)
 }

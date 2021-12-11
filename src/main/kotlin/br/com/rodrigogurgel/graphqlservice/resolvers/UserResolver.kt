@@ -1,6 +1,7 @@
 package br.com.rodrigogurgel.graphqlservice.resolvers
 
 import br.com.rodrigogurgel.graphqlservice.models.Pet
+import br.com.rodrigogurgel.graphqlservice.models.PetType
 import br.com.rodrigogurgel.graphqlservice.models.User
 import br.com.rodrigogurgel.graphqlservice.services.PetService
 import br.com.rodrigogurgel.graphqlservice.services.UserService
@@ -18,4 +19,7 @@ class UserResolver(
 
     fun users(): List<User> =
         userService.findAll()
+
+    fun petsWithType(user: User, type: PetType): List<Pet> =
+        petService.findPetsByUserIdAndType(user.id, type)
 }

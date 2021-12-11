@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository
 class UserRepositoryPGImpl(
     private val namedParameterJdbcTemplate: NamedParameterJdbcTemplate,
 ) : UserRepository {
+
     private final val insertUser = """
         insert into "user" (id, name, created_at, updated_at)
         values (:id, :name, :created_at, :updated_at)
@@ -22,7 +23,12 @@ class UserRepositoryPGImpl(
     private final val selectUserById = """
         select *
         from "user"
-        where id = :id;
+        where id = :id
+    """.trimIndent()
+
+    private final val selectAllUser = """
+        select *
+        from "user"
     """.trimIndent()
 
     override fun createUser(user: User): User {
@@ -41,13 +47,18 @@ class UserRepositoryPGImpl(
         ).first()
     }
 
-    override fun findUserById(id: UUID): User {
-        return namedParameterJdbcTemplate.query(
+    override fun findUserById(id: UUID): User =
+        namedParameterJdbcTemplate.query(
             selectUserById,
             mapOf(
                 "id" to id,
             ),
             UserMapper()
-        ).firstOrNull() ?: throw UserNotFoundException("User not found: $id")
-    }
+        ).firstOrNull() ?: throw UserNotFoundException("User Not Found! id: $id")
+
+    override fun findAll(): List<User> =
+        namedParameterJdbcTemplate.query(
+            selectAllUser,
+            UserMapper()
+        )
 }

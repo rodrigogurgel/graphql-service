@@ -1,25 +1,38 @@
 scalar DateTime
 
-input UserInput {
+enum PetType {
+    CAT
+    DOG
+    BIRD
+}
+
+input PetInput {
+    name: String
+    type: PetType
+}
+
+type Pet {
     id: ID
+    name: String
+    type: PetType
+}
+
+input UserInput {
     name: String
 }
 
 type User {
     id: ID!
     name: String
-    createdAt: DateTime
-    updatedAt: DateTime
+    pets: [Pet!]
 }
 
 type Mutation {
-    createUser(userInput: UserInput): User
+    createUser(userInput: UserInput!): User
+    createPet(userId: ID!, petInput: PetInput!): Pet
 }
 
 type Query {
-    findUserById(id: ID): User
-}
-
-schema {
-    mutation: Mutation
+    users: [User!]
+    findUserById(id: ID!): User!
 }

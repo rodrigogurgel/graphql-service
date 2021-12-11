@@ -4,6 +4,10 @@ import br.com.rodrigogurgel.graphqlservice.models.User
 import java.util.UUID
 
 interface UserRepository {
+
     fun createUser(user: User): User
+
+    fun findAll(): List<User>
+
     fun findUserById(id: UUID): User
 }

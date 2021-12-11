@@ -9,7 +9,7 @@ object UserConverter {
         with(userInput) {
             User(
                 id = id ?: UUID.randomUUID(),
-                name = name
+                name = name,
             )
         }
 }

@@ -1,4 +1,7 @@
 CREATE SCHEMA IF NOT EXISTS "graphql-service";
 
+CREATE
+    EXTENSION IF NOT EXISTS "uuid-ossp";
+
 SET
     TIMEZONE = 'GMT+3';

@@ -13,5 +13,7 @@ class UserMapper : RowMapper<User> {
         User(
             id = UUID.fromString(rs.getString("id")),
             name = rs.getString("name"),
+            createdAt = OffsetDateTime.of(rs.getTimestamp("created_at").toLocalDateTime(), ZoneOffset.ofHours(-3)),
+            updatedAt = OffsetDateTime.of(rs.getTimestamp("updated_at").toLocalDateTime(), ZoneOffset.ofHours(-3))
         )
 }

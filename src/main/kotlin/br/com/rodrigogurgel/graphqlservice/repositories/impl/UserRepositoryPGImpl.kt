@@ -31,6 +31,19 @@ class UserRepositoryPGImpl(
         from "user"
     """.trimIndent()
 
+    private final val selectWithLimit = """
+        select *
+        from "user"
+        limit :limit
+    """.trimIndent()
+
+    private final val selectAfterCreatedAtWithLimit = """
+        select *
+        from "user"
+        where created_at > :after
+        limit :limit
+    """.trimIndent()
+
     override fun createUser(user: User): User {
         val params = with(user) {
             mapOf(
@@ -47,6 +60,12 @@ class UserRepositoryPGImpl(
         ).first()
     }
 
+    override fun findAll(): List<User> =
+        namedParameterJdbcTemplate.query(
+            selectAllUser,
+            UserMapper()
+        )
+
     override fun findUserById(id: UUID): User =
         namedParameterJdbcTemplate.query(
             selectUserById,
@@ -56,9 +75,23 @@ class UserRepositoryPGImpl(
             UserMapper()
         ).firstOrNull() ?: throw UserNotFoundException("User Not Found! id: $id")
 
-    override fun findAll(): List<User> =
+    override fun findWithLimit(limit: Int): List<User> =
         namedParameterJdbcTemplate.query(
-            selectAllUser,
+            selectWithLimit,
+            mapOf(
+                "limit" to limit
+            ),
+            UserMapper()
+        )
+
+
+    override fun findAfterWithLimit(limit: Int, after: OffsetDateTime): List<User> =
+        namedParameterJdbcTemplate.query(
+            selectAfterCreatedAtWithLimit,
+            mapOf(
+                "after" to after,
+                "limit" to limit
+            ),
             UserMapper()
         )
 }

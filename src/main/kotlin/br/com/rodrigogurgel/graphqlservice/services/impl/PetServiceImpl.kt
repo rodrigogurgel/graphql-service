@@ -4,6 +4,7 @@ import br.com.rodrigogurgel.graphqlservice.models.Pet
 import br.com.rodrigogurgel.graphqlservice.models.PetType
 import br.com.rodrigogurgel.graphqlservice.repositories.PetRepository
 import br.com.rodrigogurgel.graphqlservice.services.PetService
+import java.time.OffsetDateTime
 import java.util.UUID
 import org.springframework.stereotype.Service
 
@@ -23,4 +24,14 @@ class PetServiceImpl(
 
     override fun findPetsByUserIdAndType(userId: UUID, type: PetType): List<Pet> =
         petRepository.findPetsByUserIdAndType(userId, type)
+
+    override fun findAll(): List<Pet> =
+        petRepository.findAll()
+
+    override fun findWithLimit(limit: Int, after: OffsetDateTime?): List<Pet> {
+        return if (after != null) petRepository.findAfterWithLimit(
+            limit = limit,
+            after = after
+        ) else petRepository.findWithLimit(limit = limit)
+    }
 }

@@ -3,8 +3,10 @@ package br.com.rodrigogurgel.graphqlservice.repositories.impl
 import br.com.rodrigogurgel.graphqlservice.exceptions.PetNotFoundException
 import br.com.rodrigogurgel.graphqlservice.models.Pet
 import br.com.rodrigogurgel.graphqlservice.models.PetType
+import br.com.rodrigogurgel.graphqlservice.models.User
 import br.com.rodrigogurgel.graphqlservice.repositories.PetRepository
 import br.com.rodrigogurgel.graphqlservice.repositories.mappers.PetMapper
+import br.com.rodrigogurgel.graphqlservice.repositories.mappers.UserMapper
 import java.time.OffsetDateTime
 import java.util.UUID
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
@@ -14,6 +16,10 @@ import org.springframework.stereotype.Repository
 class PetRepositoryPGImpl(
     private val namedParameterJdbcTemplate: NamedParameterJdbcTemplate,
 ) : PetRepository {
+
+    private final val findAllPet = """
+        select * from pet
+    """.trimIndent()
 
     private final val findPetsByUserId = """
         select * from pet
@@ -34,6 +40,17 @@ class PetRepositoryPGImpl(
     private final val findPetId = """
         select * from pet
         where id = :id
+    """.trimIndent()
+
+    private final val selectWithLimit = """
+        select * from pet
+        limit :limit
+    """.trimIndent()
+
+    private final val selectAfterCreatedAtWithLimit = """
+        select * from pet
+        where created_at > :after
+        limit :limit
     """.trimIndent()
 
     override fun findPetsByUserId(userId: UUID): List<Pet> =
@@ -77,6 +94,33 @@ class PetRepositoryPGImpl(
             mapOf(
                 "user_id" to userId,
                 "type" to type.name
+            ),
+            PetMapper()
+        )
+
+    override fun findAll(): List<Pet> =
+        namedParameterJdbcTemplate.query(
+            findAllPet,
+            PetMapper()
+        )
+
+    override fun findWithLimit(limit: Int): List<Pet> {
+        return namedParameterJdbcTemplate.query(
+            selectWithLimit,
+            mapOf(
+                "limit" to limit
+            ),
+            PetMapper()
+        )
+    }
+
+
+    override fun findAfterWithLimit(limit: Int, after: OffsetDateTime): List<Pet> =
+        namedParameterJdbcTemplate.query(
+            selectAfterCreatedAtWithLimit,
+            mapOf(
+                "after" to after,
+                "limit" to limit
             ),
             PetMapper()
         )

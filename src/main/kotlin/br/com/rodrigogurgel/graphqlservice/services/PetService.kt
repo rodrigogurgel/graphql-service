@@ -8,4 +8,6 @@ interface PetService {
     fun findPetsByUserId(userId: UUID): List<Pet>
 
     fun createPet(userId: UUID, pet: Pet): Pet
+
+    fun findPetById(id: UUID): Pet
 }

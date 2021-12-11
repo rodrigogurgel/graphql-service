@@ -12,6 +12,7 @@ class PetMapper : RowMapper<Pet> {
         Pet(
             id = UUID.fromString(rs.getString("id")),
             name = rs.getString("name"),
-            type = PetType.getValueOrUnknown(rs.getString("pet_type"))
+            type = PetType.getValueOrUnknown(rs.getString("pet_type")),
+            userId = UUID.fromString(rs.getString("user_id"))
         )
 }

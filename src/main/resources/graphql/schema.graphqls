@@ -12,9 +12,10 @@ input PetInput {
 }
 
 type Pet {
-    id: ID
+    id: ID!
     name: String
     type: PetType
+    user: User
 }
 
 input UserInput {
@@ -35,4 +36,5 @@ type Mutation {
 type Query {
     users: [User!]
     findUserById(id: ID!): User!
+    findPetById(id: ID!): Pet!
 }

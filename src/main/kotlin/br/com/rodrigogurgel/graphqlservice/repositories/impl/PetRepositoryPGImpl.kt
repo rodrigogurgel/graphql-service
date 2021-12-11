@@ -1,5 +1,6 @@
 package br.com.rodrigogurgel.graphqlservice.repositories.impl
 
+import br.com.rodrigogurgel.graphqlservice.exceptions.PetNotFoundException
 import br.com.rodrigogurgel.graphqlservice.models.Pet
 import br.com.rodrigogurgel.graphqlservice.repositories.PetRepository
 import br.com.rodrigogurgel.graphqlservice.repositories.mappers.PetMapper
@@ -22,6 +23,11 @@ class PetRepositoryPGImpl(
         insert into pet (id, user_id, name, pet_type, created_at, updated_at)
         values (:id, :user_id, :name, :pet_type, :created_at, :updated_at)
         returning *
+    """.trimIndent()
+
+    private final val findPetId = """
+        select * from pet
+        where id = :id
     """.trimIndent()
 
     override fun findPetsByUserId(userId: UUID): List<Pet> =
@@ -47,5 +53,15 @@ class PetRepositoryPGImpl(
             params,
             PetMapper()
         ).first()
+    }
+
+    override fun findPetById(id: UUID): Pet {
+        return namedParameterJdbcTemplate.query(
+            findPetId,
+            mapOf(
+                "id" to id
+            ),
+            PetMapper()
+        ).firstOrNull() ?: throw PetNotFoundException("Pet Not Found! id: $id")
     }
 }

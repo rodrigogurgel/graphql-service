@@ -11,7 +11,8 @@ object PetConverter {
             Pet(
                 id = UUID.randomUUID(),
                 name = name,
-                type = type
+                type = type,
+                userId = null
             )
         }
 }

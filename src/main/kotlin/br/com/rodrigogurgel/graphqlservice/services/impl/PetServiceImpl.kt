@@ -16,4 +16,7 @@ class PetServiceImpl(
 
     override fun createPet(userId: UUID, pet: Pet): Pet =
         petRepository.createPet(userId, pet)
+
+    override fun findPetById(id: UUID): Pet =
+        petRepository.findPetById(id)
 }

@@ -1,0 +1,14 @@
+query FIND_USER_BY_ID($id: ID!, $petType: PetType) {
+    findUserById(id: $id) {
+        id
+        name
+        pets {
+            id
+            name
+        }
+        petsWithType(type: $petType) {
+            id
+            name
+        }
+    }
+}

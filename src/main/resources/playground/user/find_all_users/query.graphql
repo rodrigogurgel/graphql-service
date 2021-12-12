@@ -1,0 +1,11 @@
+query FIND_ALL_USERS {
+    findAllUsers {
+        id
+        name
+        pets {
+            id
+            name
+            type
+        }
+    }
+}

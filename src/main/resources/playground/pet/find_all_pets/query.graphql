@@ -1,0 +1,11 @@
+query FIND_ALL_PETS {
+    findAllPets {
+        id
+        name
+        type
+        user {
+            id
+            name
+        }
+    }
+}

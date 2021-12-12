@@ -1,0 +1,6 @@
+type Pet {
+    id: ID!
+    name: String
+    type: PetType
+    user: User
+}

@@ -1,0 +1,4 @@
+input PetInput {
+    name: String
+    type: PetType
+}

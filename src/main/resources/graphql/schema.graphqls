@@ -1,44 +1,4 @@
-scalar DateTime
-
-enum PetType {
-    CAT
-    DOG
-    BIRD
-}
-
-input PetInput {
-    name: String
-    type: PetType
-}
-
-type Pet {
-    id: ID!
-    name: String
-    type: PetType
-    user: User
-}
-
-input UserInput {
-    name: String
-}
-
-type User {
-    id: ID!
-    name: String
-    pets: [Pet!]
-    petsWithType(type: PetType): [Pet!]
-}
-
-type Mutation {
-    createUser(userInput: UserInput!): User
-    createPet(userId: ID!, petInput: PetInput!): Pet
-}
-
-type Query {
-    users: [User!]
-    findUserById(id: ID!): User!
-    findPetById(id: ID!): Pet!
-    pets: [Pet!]
-    users(first: Int, after: String): UserConnection @connection (for: "User")
-    pets(first: Int, after: String): PetConnection @connection (for: "Pet")
+schema {
+    query: Query
+    mutation: Mutation
 }

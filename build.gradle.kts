@@ -21,11 +21,11 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	testImplementation("org.springframework.boot:spring-boot-starter-test:2.6.1")
 
-	// graphql dependecies
-	implementation("com.graphql-java-kickstart:graphql-java-tools:12.0.1")
+	// graphql dependencies
+	implementation("org.apache.tomcat:tomcat-coyote:10.0.14")
 	implementation("com.graphql-java-kickstart:graphql-spring-boot-starter:12.0.0")
-	implementation("com.graphql-java-kickstart:graphiql-spring-boot-starter:11.1.0")
 	implementation("org.springframework.boot:spring-boot-starter-webflux:2.6.1")
+	implementation("org.springframework.boot:spring-boot-starter-actuator:2.6.1")
 
 	// JDBC
 	implementation("org.springframework.boot:spring-boot-starter-jdbc:2.6.1")
@@ -35,8 +35,6 @@ dependencies {
 
 	// Postgresql Driver
 	implementation("org.postgresql:postgresql:42.3.1")
-
-
 }
 
 tasks.withType<KotlinCompile> {

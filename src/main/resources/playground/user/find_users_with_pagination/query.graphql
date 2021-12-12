@@ -1,0 +1,21 @@
+query FIND_USERS_WITH_PAGINATION($first: Int, $after: String) {
+    findUsers(first: $first, after: $after) {
+        edges {
+            node {
+                id
+                name
+                pets {
+                    id
+                    name
+                    type
+                }
+            }
+        }
+        pageInfo {
+            hasNextPage
+            hasPreviousPage
+            endCursor
+            startCursor
+        }
+    }
+}

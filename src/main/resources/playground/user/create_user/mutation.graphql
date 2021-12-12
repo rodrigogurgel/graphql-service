@@ -1,0 +1,6 @@
+mutation CREATE_USER($userInput: UserInput!) {
+    createUser(userInput: $userInput) {
+        id
+        name
+    }
+}

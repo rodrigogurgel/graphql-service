@@ -1,0 +1,10 @@
+query FIND_PET_BY_ID($id: ID!) {
+    findPetById(id: $id) {
+        id
+        name
+        user {
+            id
+            name
+        }
+    }
+}

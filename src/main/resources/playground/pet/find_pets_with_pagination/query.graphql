@@ -1,0 +1,15 @@
+query FIND_PETS_WITH_PAGINATION($first: Int, $after: String) {
+    findPets(first: $first, after: $after) {
+        edges {
+            node {
+                id
+                name
+                type
+                user {
+                    id
+                    name
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,52 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/graphql-service?prepareThreshold=0}
+    username: ${DB_USERNAME:graphql-service}
+    password: ${DB_PASSWORD:graphql-service}
+
+graphql:
+  graphiql:
+    enabled: true
+  playground:
+    enabled: true
+    tabs:
+      - name: Create User
+        query: classpath:playground/user/create_user/mutation.graphql
+        variables: classpath:playground/user/create_user/variables.json
+
+      - name: Create Pet
+        query: classpath:playground/pet/create_pet/mutation.graphql
+        variables: classpath:playground/pet/create_pet/variables.json
+
+      - name: All Pets
+        query: classpath:playground/pet/find_all_pets/query.graphql
+
+      - name: All Users
+        query: classpath:playground/user/find_all_users/query.graphql
+
+      - name: Find Users With Pagination
+        query: classpath:playground/user/find_users_with_pagination/query.graphql
+        variables: classpath:playground/user/find_users_with_pagination/variables.json
+
+      - name: Find Pets With Pagination
+        query: classpath:playground/pet/find_pets_with_pagination/query.graphql
+        variables: classpath:playground/pet/find_pets_with_pagination/variables.json
+
+      - name: Find User By Id
+        query: classpath:playground/user/find_user_by_id/query.graphql
+        variables: classpath:playground/user/find_user_by_id/variables.json
+
+      - name: Find Pet By Id
+        query: classpath:playground/pet/find_pet_by_id/query.graphql
+        variables: classpath:playground/pet/find_pet_by_id/variables.json
+
+  servlet:
+      max-query-depth: 3
+
+logging:
+  level:
+    org:
+      springframework:
+        jdbc:
+          core:
+            JdbcTemplate: warn

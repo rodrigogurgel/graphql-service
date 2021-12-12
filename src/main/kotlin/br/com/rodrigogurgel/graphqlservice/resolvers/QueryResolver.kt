@@ -21,7 +21,7 @@ class QueryResolver(
     private val petService: PetService
 ) : GraphQLQueryResolver {
 
-    fun users(): List<User> =
+    fun findAllUsers(): List<User> =
         userService.findAll()
 
     fun findUserById(id: UUID): User =
@@ -30,10 +30,10 @@ class QueryResolver(
     fun findPetById(id: UUID): Pet =
         petService.findPetById(id)
 
-    fun pets(): List<Pet> =
+    fun findAllPets(): List<Pet> =
         petService.findAll()
 
-    fun users(first: Int, cursor: String?): Connection<User> {
+    fun findUsers(first: Int, cursor: String?): Connection<User> {
         val after = cursor?.let { CursorUtil.decode(it) }
 
         val users = userService.findWithLimit(
@@ -56,7 +56,7 @@ class QueryResolver(
         return DefaultConnection(edges, defaultPageInfo)
     }
 
-    fun pets(first: Int, cursor: String?): Connection<Pet> {
+    fun findPets(first: Int, cursor: String?): Connection<Pet> {
         val after = cursor?.let { CursorUtil.decode(it) }
 
         val pets = petService.findWithLimit(

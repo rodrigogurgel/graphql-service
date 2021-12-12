@@ -1,0 +1,8 @@
+type Query {
+    findAllUsers: [User!]
+    findUserById(id: ID!): User!
+    findPetById(id: ID!): Pet!
+    findAllPets: [Pet!]
+    findUsers(first: Int, after: String): UserConnection @connection (for: "User")
+    findPets(first: Int, after: String): PetConnection @connection (for: "Pet")
+}

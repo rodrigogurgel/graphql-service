@@ -1,0 +1,4 @@
+type Mutation {
+    createUser(userInput: UserInput!): User
+    createPet(userId: ID!, petInput: PetInput!): Pet
+}

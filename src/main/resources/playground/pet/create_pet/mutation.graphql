@@ -1,0 +1,10 @@
+mutation CREATE_PET($userId: ID!, $petInput: PetInput!) {
+    createPet(userId: $userId, petInput: $petInput) {
+        id
+        name
+        user {
+            id
+            name
+        }
+    }
+}

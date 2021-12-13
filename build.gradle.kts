@@ -22,9 +22,10 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test:2.6.1")
 
 	// graphql dependencies
-	implementation("org.apache.tomcat:tomcat-coyote:10.0.14")
-	implementation("com.graphql-java-kickstart:graphql-spring-boot-starter:12.0.0")
-	implementation("org.springframework.boot:spring-boot-starter-webflux:2.6.1")
+	implementation("com.graphql-java-kickstart:graphql-spring-boot-starter:11.1.0")
+	implementation("com.graphql-java-kickstart:graphiql-spring-boot-starter:11.1.0")
+	implementation("com.graphql-java-kickstart:voyager-spring-boot-starter:11.1.0")
+	implementation("com.graphql-java-kickstart:playground-spring-boot-starter:11.1.0")
 	implementation("org.springframework.boot:spring-boot-starter-actuator:2.6.1")
 
 	// JDBC

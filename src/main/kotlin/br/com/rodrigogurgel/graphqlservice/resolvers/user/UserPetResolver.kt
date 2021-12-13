@@ -1,21 +1,20 @@
-package br.com.rodrigogurgel.graphqlservice.resolvers
+package br.com.rodrigogurgel.graphqlservice.resolvers.user
 
 import br.com.rodrigogurgel.graphqlservice.models.Pet
+import br.com.rodrigogurgel.graphqlservice.models.PetType
 import br.com.rodrigogurgel.graphqlservice.models.User
 import br.com.rodrigogurgel.graphqlservice.services.PetService
-import br.com.rodrigogurgel.graphqlservice.services.UserService
 import graphql.kickstart.tools.GraphQLResolver
 import org.springframework.stereotype.Component
 
 @Component
-class PetResolver(
-    private val petService: PetService,
-    private val userService: UserService
-) : GraphQLResolver<Pet> {
+class UserPetResolver (
+    private val petService: PetService
+) : GraphQLResolver<User> {
 
     fun pets(user: User): List<Pet> =
         petService.findPetsByUserId(user.id)
 
-    fun user(pet: Pet): User =
-        userService.findUserById(pet.userId!!)
+    fun petsWithType(user: User, type: PetType): List<Pet> =
+        petService.findPetsByUserIdAndType(user.id, type)
 }

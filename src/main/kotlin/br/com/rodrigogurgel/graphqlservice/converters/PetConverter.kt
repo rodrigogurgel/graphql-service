@@ -7,13 +7,13 @@ import java.util.UUID
 
 object PetConverter {
 
-    fun toModel(petInput: PetInput): Pet =
+    fun toModel(userId: UUID, petInput: PetInput): Pet =
         with(petInput) {
             Pet(
                 id = UUID.randomUUID(),
                 name = name,
                 type = type,
-                userId = null,
+                userId = userId,
                 createdAt = OffsetDateTime.now(),
                 updatedAt = OffsetDateTime.now()
             )

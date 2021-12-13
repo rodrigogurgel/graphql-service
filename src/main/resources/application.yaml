@@ -7,6 +7,7 @@ spring:
 graphql:
   graphiql:
     enabled: true
+
   playground:
     enabled: true
     tabs:
@@ -41,7 +42,14 @@ graphql:
         variables: classpath:playground/pet/find_pet_by_id/variables.json
 
   servlet:
-      max-query-depth: 3
+#    max-query-depth cause exception in docs and schema
+#    max-query-depth: 3
+    actuator-metrics: true
+    tracing-enabled: true
+    exception-handlers-enabled: true
+
+  voyager:
+    enabled: true
 
 logging:
   level:
@@ -50,3 +58,10 @@ logging:
         jdbc:
           core:
             JdbcTemplate: warn
+management:
+  endpoint:
+    metrics:
+      enabled: true
+
+graphiql:
+  enabled: true

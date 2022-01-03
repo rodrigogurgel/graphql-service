@@ -27,6 +27,7 @@ dependencies {
 	implementation("com.graphql-java-kickstart:voyager-spring-boot-starter:11.1.0")
 	implementation("com.graphql-java-kickstart:playground-spring-boot-starter:11.1.0")
 	implementation("org.springframework.boot:spring-boot-starter-actuator:2.6.1")
+	implementation("org.slf4j:slf4j-api:1.7.32")
 
 	// JDBC
 	implementation("org.springframework.boot:spring-boot-starter-jdbc:2.6.1")
@@ -37,6 +38,12 @@ dependencies {
 	// Postgresql Driver
 	implementation("org.postgresql:postgresql:42.3.1")
 }
+
+//dependencyManagement {
+//	imports {
+//		mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+//	}
+//}
 
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
